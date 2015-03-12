@@ -1316,10 +1316,8 @@ static int adev_set_parameters(struct audio_hw_device *dev, const char *kvpairs)
     int retval = 0;
 
     if (out == NULL)
-    {
-        ERROR("ERROR: set param called even when stream out is null");
         return retval;
-    }
+
     retval = out->stream.common.set_parameters((struct audio_stream *)out, kvpairs);
 
     return retval;

@@ -70,6 +70,8 @@
 
 #define SAFE_FD_ISSET(fd, set) (((fd) == -1) ? FALSE : FD_ISSET((fd), (set)))
 
+#define UIPC_FLUSH_BUFFER_SIZE 1024
+
 /*****************************************************************************
 **  Local type definitions
 ******************************************************************************/
@@ -379,11 +381,14 @@ static void uipc_flush_ch_locked(tUIPC_CH_ID ch_id)
     int ret;
     int size = 0;
 
-    pfd.events = POLLIN|POLLHUP;
+    pfd.events = POLLIN;
     pfd.fd = uipc_main.ch[ch_id].fd;
 
     if (uipc_main.ch[ch_id].fd == UIPC_DISCONNECTED)
+    {
+        BTIF_TRACE_EVENT("%s() - fd disconnected. Exiting", __FUNCTION__);
         return;
+    }
 
     while (1)
     {
