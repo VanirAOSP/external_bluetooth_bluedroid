@@ -30,7 +30,7 @@ LOCAL_C_INCLUDES := . \
          $(bdroid_C_INCLUDES) \
          external/tinyxml2
 
-LOCAL_CFLAGS += -std=c99
+LOCAL_CFLAGS += -std=c99 -Wno-error=missing-field-initializers
 
 LOCAL_CFLAGS += $(bdroid_CFLAGS)
 LOCAL_MODULE_TAGS := debug optional
